@@ -93,8 +93,7 @@ export default defineComponent({
         if not it moves to a new list "argueWords" or smth that will only be taken into account again if theres not a clear winner
       */
       if (selectedCells.value.length === 0) {
-        // first cell selected
-        currentWord.value = grid.value[rowIndex][colIndex].letter;
+        // Update selectedCells (which is our word)
         selectedCells.value.push({
           letter: grid.value[rowIndex][colIndex].letter,
           cellClass: "selected",
@@ -103,29 +102,29 @@ export default defineComponent({
 
         highlightAdjacentCells(rowIndex, colIndex); // animate adjacent cells
 
-        console.log(grid.value[rowIndex][colIndex].cellClass);
+        // Update the board we are currently forming our word in
         grid.value[rowIndex][colIndex].cellClass = "selected";
+        grid.value[rowIndex][colIndex].selected = true;
+
         lastSelectedRow.value = rowIndex;
         lastSelectedCol.value = colIndex;
       } else {
         // Check if it's adjacent
         if (isAdjacentToLastCell(rowIndex, colIndex)) {
-          currentWord.value += grid.value[rowIndex][colIndex].letter;
-
           highlightAdjacentCells(rowIndex, colIndex);
-
           selectedCells.value.push({
             letter: grid.value[rowIndex][colIndex].letter,
             cellClass: "selected",
             selected: true,
           });
-
-          console.log(grid.value[rowIndex][colIndex].cellClass);
           grid.value[rowIndex][colIndex].cellClass = "selected";
+          grid.value[rowIndex][colIndex].selected = true;
           lastSelectedRow.value = rowIndex;
           lastSelectedCol.value = colIndex;
         }
       }
+
+      console.log(grid.value);
     }
 
     function highlightAdjacentCells(rowIndex: number, colIndex: number): void {
@@ -162,6 +161,8 @@ export default defineComponent({
             // Check if the cell was not selected
             grid.value[newRow][newCol].cellClass = "canBeSelected";
           }
+        } else {
+          submitWord();
         }
       }
     }
