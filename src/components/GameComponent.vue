@@ -59,7 +59,7 @@ export default defineComponent({
     const isGameOver: Ref<boolean> = ref(false);
     const lastSelectedRow: Ref<number | null> = ref(null);
     const lastSelectedCol: Ref<number | null> = ref(null);
-    const timer: Ref<number> = ref(180); // Initial time in seconds (3 minutes)
+    const timer: Ref<number> = ref(180);
     const isGameStarted: Ref<boolean> = ref(false);
 
     interface Cell {

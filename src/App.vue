@@ -1,11 +1,9 @@
 <template>
-  <GameComponent />
+  <div>
+    <router-view />
+  </div>
 </template>
 
-<script setup>
-import GameComponent from '@/components/GameComponent.vue';
-</script>
-
 <style>
-@import '@/assets/main.scss';
+@import "@/assets/main.scss";
 </style>
