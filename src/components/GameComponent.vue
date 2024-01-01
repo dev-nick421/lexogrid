@@ -37,11 +37,17 @@
     <div class="score">
       <p>Score: {{ score }}</p>
     </div>
+    <div class="timer-container">
+      <div class="timer-display">
+        {{ formatTime(timer) }}
+      </div>
+      <button @click="startGame" :disabled="isGameStarted">Start Game</button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, Ref } from "vue";
+import { ref, defineComponent, Ref, watch } from "vue";
 
 export default defineComponent({
   setup() {
@@ -53,6 +59,8 @@ export default defineComponent({
     const isGameOver: Ref<boolean> = ref(false);
     const lastSelectedRow: Ref<number | null> = ref(null);
     const lastSelectedCol: Ref<number | null> = ref(null);
+    const timer: Ref<number> = ref(180); // Initial time in seconds (3 minutes)
+    const isGameStarted: Ref<boolean> = ref(false);
 
     interface Cell {
       letter: string;
@@ -210,6 +218,45 @@ export default defineComponent({
       }
     }
 
+    const startGame = () => {
+      isGameStarted.value = true;
+
+      const interval = setInterval(() => {
+        timer.value--;
+
+        if (timer.value === 0) {
+          // Game over, take action
+          endGame();
+        }
+      }, 1000);
+
+      // Watch for changes in isGameStarted and clear the interval when the game is stopped
+      watch(isGameStarted, (newValue) => {
+        if (!newValue) {
+          clearInterval(interval);
+        }
+      });
+    };
+
+    const endGame = () => {
+      // Perform actions when the game ends, e.g., compare results with opponents
+      console.log("Game Over!");
+
+      // Reset the timer and game state
+      resetGame();
+    };
+
+    const resetGame = () => {
+      timer.value = 180; // Reset the timer to 3 minutes
+      isGameStarted.value = false;
+    };
+
+    const formatTime = (time: number): string => {
+      const minutes = Math.floor(time / 60);
+      const seconds = time % 60;
+      return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    };
+
     return {
       grid,
       currentWord,
@@ -221,6 +268,10 @@ export default defineComponent({
       lastSelectedCol,
       selectCell,
       submitWord,
+      timer,
+      isGameStarted,
+      startGame,
+      formatTime,
     };
   },
 });

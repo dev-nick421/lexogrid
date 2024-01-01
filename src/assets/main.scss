@@ -1,10 +1,10 @@
-@import '_animations.scss';
-@import '_media.scss';
+@import "_animations.scss";
+@import "_media.scss";
 
 /* General */
 body {
-  font-family: 'Arial', sans-serif !important;
-  background: linear-gradient(90deg, #2C4087 0%, #308C9D 50%, #3A6E8A 100%);; 
+  font-family: "Arial", sans-serif !important;
+  background: linear-gradient(90deg, #2c4087 0%, #308c9d 50%, #3a6e8a 100%);
   margin: 0;
   padding: 0;
   color: #fff;
@@ -17,7 +17,7 @@ ul {
 }
 
 /* Game */
-#game{
+#game {
   display: flex;
   flex-direction: column;
 }
@@ -76,7 +76,7 @@ ul {
   .cell {
     margin: 2px;
     height: 40px;
-    width : 40px;
+    width: 40px;
     font-size: 16px;
   }
 }
@@ -99,22 +99,44 @@ button {
 }
 
 /* Cell Status */
-.open { /* Cell standard */
+.open {
+  /* Cell standard */
   background-color: #fff;
 }
-.selected { /* Cell selected */
+.selected {
+  /* Cell selected */
   background-color: rgb(110, 190, 114);
 }
 
-.canBeSelected { /* Cell starts bouncing when adjacent and therefore selectable */
+.canBeSelected {
+  /* Cell starts bouncing when adjacent and therefore selectable */
   background-color: #fff;
   animation: heartbeat 1s infinite;
 }
 
-.inWord { /* Cell has been selected and not yet submitted */
+.inWord {
+  /* Cell has been selected and not yet submitted */
   background-color: rgb(153, 216, 156);
 }
 
-.inactive { /* Cell unreachable and therefore inactive */
+.inactive {
+  /* Cell unreachable and therefore inactive */
   background-color: gray;
+}
+
+/* Timer */
+.timer-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.timer-display {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+button {
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
 }
